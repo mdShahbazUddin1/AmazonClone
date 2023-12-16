@@ -7,15 +7,74 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (token) {
+          navigation.replace("Main");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      console.error("Please fill in all fields");
+      return;
+    }
+
+    const user = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await fetch(`http://192.168.1.33:8080/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login successful
+        alert("Login Success");
+        AsyncStorage.setItem("token", data.token);
+        navigation.replace("Main");
+      } else {
+        // Login failed, handle different cases
+        if (data.msg === "Invalid Email") {
+          alert("Invalid Email");
+        } else if (data.msg === "Wrong Credential") {
+          alert("Wrong Credential");
+        } else if (data.msg === "Please Verify Your Email To Login") {
+          alert("Please Verify Your Email To Login");
+        }
+      }
+    } catch (error) {
+      // Handle fetch or other network-related errors
+      console.error(error.message);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeAreaBox}>
       <View>
@@ -82,6 +141,7 @@ const LoginScreen = () => {
         </View>
         <View style={{ marginTop: 70 }} />
         <Pressable
+          onPress={handleLogin}
           style={{
             width: 200,
             backgroundColor: "#FFCA28",

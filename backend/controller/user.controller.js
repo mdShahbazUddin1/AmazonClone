@@ -2,14 +2,15 @@ const bcrypt = require("bcrypt");
 const { UserModel } = require("../model/user");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-const { userRoute } = require("../routes/users.routes");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 // function to send verifiction mail
 
 const sendVerificationMail = async (name, email, verificationToken) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gamial",
+      service: "gmail",
       auth: {
         user: "jackayron5@gmail.com",
         pass: "unpptovcdhpfkzdv",
@@ -20,7 +21,7 @@ const sendVerificationMail = async (name, email, verificationToken) => {
       from: "amazon.com",
       to: email,
       subject: "Email verification",
-      text: `Hii ! ${name} Please click the following link to verify your email : http://localhost:8080/verify/${verificationToken}`,
+      text: `Hii ! ${name} Please click the following link to verify your email : http://localhost:8080/user/verify/${verificationToken}`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -80,7 +81,33 @@ const verifyEmailToken = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const isUserPresent = await UserModel.findOne({ email });
+
+    if (!isUserPresent) return res.status(403).send({ msg: "Invalid Email" });
+
+    const isPassWord = await bcrypt.compare(password, isUserPresent.password);
+
+    if (!isPassWord) return res.status(403).send({ msg: "Wrong Credential" });
+
+    if (!isUserPresent.verified)
+      return res.status(403).send({ msg: "Please Verify Your Email To Login" });
+
+    const token = await jwt.sign(
+      { userId: isUserPresent._id },
+      process.env.accessToken
+    );
+    res.status(200).send({ msg: "Login Success", token });
+  } catch (error) {
+    res.status(500).send({ msg: error.message });
+  }
+};
+
 module.exports = {
   register,
   verifyEmailToken,
+  login,
 };

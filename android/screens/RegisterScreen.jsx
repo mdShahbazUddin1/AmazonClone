@@ -34,10 +34,12 @@ const RegisterScreen = () => {
       password: password,
     };
     axios
-      .post("http://localhost:8080/user/register", user)
+      .post("http://192.168.1.33:8080/user/register", user)
       .then((res) => {
-        console.log(res);
-        Alert.alert("Registration Success");
+        Alert.alert(
+          "Registration Success",
+          "Verification Link Sent To Your Email ! Please Check Inbox Or Span To Verify "
+        );
         setName("");
         setEmail("");
         setPassword("");
