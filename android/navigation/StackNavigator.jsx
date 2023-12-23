@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -9,6 +9,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import ProductScreen from "../screens/ProductScreen";
+import AddAdressScreen from "../screens/AddAdressScreen";
+import AddScreen from "../screens/AddScreen";
+import CartScreen from "../screens/CartScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,7 +38,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: "Profile",
           tabBarLabelStyle: { color: "#008E97" },
@@ -48,7 +53,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Cart"
-        component={HomeScreen}
+        component={CartScreen}
         options={{
           tabBarLabel: "Cart",
           tabBarLabelStyle: { color: "#008E97" },
@@ -68,6 +73,7 @@ function BottomTabs() {
 const StackNavigator = () => {
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="#29B6F6" barStyle="light-content" />
       <Stack.Navigator>
         <Stack.Screen
           name="Login"
@@ -82,6 +88,21 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Main"
           component={BottomTabs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Info"
+          component={ProductScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Address"
+          component={AddAdressScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Add"
+          component={AddScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

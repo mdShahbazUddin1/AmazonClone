@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import StackNavigator from "./navigation/StackNavigator";
-
+import { Provider } from "react-redux";
+import store from "./store/store";
 export default function App() {
   return (
     <>
-      <StackNavigator />
+      <Provider store={store}>
+        <StackNavigator />
+      </Provider>
     </>
   );
 }

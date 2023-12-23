@@ -106,8 +106,61 @@ const login = async (req, res) => {
   }
 };
 
+const addNewAddress = async (req, res) => {
+  try {
+    const {
+      name,
+      mobileNo,
+      houseNo,
+      street,
+      landmark,
+      city,
+      country,
+      postalcode,
+    } = req.body;
+    const userId = req.userId;
+
+    const isUser = await UserModel.findById(userId);
+
+    if (!isUser) return res.status(403).send({ msg: "User not found" });
+    const newAddress = {
+      name,
+      mobileNo,
+      houseNo,
+      street,
+      landmark,
+      city,
+      country,
+      postalcode,
+    };
+
+    isUser.addresses.push(newAddress);
+
+    await isUser.save();
+    res.status(200).send({ msg: "New Address Added" });
+  } catch (error) {
+    res.status(200).send({ msg: error.message });
+  }
+};
+
+const getUserAddress = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const isUser = await UserModel.findById(userId);
+    if (!isUser) return res.status(403).send({ msg: "User Not Found" });
+
+    const address = isUser.addresses;
+    res.status(200).send(address);
+  } catch (error) {
+    res.status(200).send(error.message);
+  }
+};
+
 module.exports = {
   register,
   verifyEmailToken,
   login,
+  addNewAddress,
+  getUserAddress,
 };
