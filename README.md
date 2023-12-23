@@ -28,19 +28,19 @@ Welcome to the Amazon Clone Mobile App –
 
 - **Real-Time Interaction:** Experience instant updates and interactions with a real-time shopping environment.
 
-- <img src="https://imgur.com/a/TGB2MkC.png" alt="Project Image" width="1000" height="500">
+- <img src="https://imgur.com/wcQxDjs.png" alt="Project Image" width="400" height="500">
 
 - **User Authentication:** Secure user authentication system for creating and managing accounts.
 
-- <img src="https://imgur.com/a/AEFFucW.png" alt="Project Image" width="1000" height="500">
+- <img src="https://imgur.com/GlLLCLy.png" alt="Project Image" width="400" height="500">
 
 - **Create and Edit Carts:** Intuitive blog creation and editing features to bring your ideas to life.
 - 
-- <img src="https://imgur.com/a/qeoiZqe.png" alt="Project Image" width="1000" height="500">
+- <img src="https://imgur.com/1Ju76sx.png" alt="Project Image" width="400" height="500">
 
 - **Filter-By-Category:** Foster community engagement through likes and comments on blogs.
 
--  <img src="https://imgur.com/a/wl0MrSQ.png" alt="Project Image" width="1000" height="500">
+-  <img src="https://imgur.com/eYsWxqX.png" alt="Project Image" width="400" height="500">
 
 - **Responsive Design:** Enjoy a seamless experience across various devices with a responsive web design.
 
