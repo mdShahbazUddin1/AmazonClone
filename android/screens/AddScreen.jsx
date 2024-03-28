@@ -36,7 +36,7 @@ const AddScreen = () => {
         postalcode: pincode,
       };
 
-      const response = await fetch(`http://192.168.1.33:8080/user/addAdress`, {
+      const response = await fetch(`http://192.168.1.5:8080/user/addAdress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

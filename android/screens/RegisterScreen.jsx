@@ -34,7 +34,7 @@ const RegisterScreen = () => {
       password: password,
     };
     axios
-      .post("http://192.168.1.33:8080/user/register", user)
+      .post("http://192.168.1.5:8080/user/register", user)
       .then((res) => {
         Alert.alert(
           "Registration Success",

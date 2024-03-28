@@ -15,16 +15,13 @@ const AddAdressScreen = () => {
     const getAllAddress = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
-        const response = await fetch(
-          `http://192.168.1.33:8080/user/getAdress`,
-          {
-            method: "GET", // Use "GET" instead of "Get"
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
+        const response = await fetch(`http://192.168.1.5:8080/user/getAdress`, {
+          method: "GET", // Use "GET" instead of "Get"
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch addresses");
